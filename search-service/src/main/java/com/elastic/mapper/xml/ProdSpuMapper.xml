@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elastic.mapper.ProdSpuMapper">
+  <resultMap id="BaseResultMap" type="com.elastic.entity.po.ProdSpu">
+    <id column="spu_id" jdbcType="VARCHAR" property="spuId" />
+    <result column="cate_id" jdbcType="INTEGER" property="cateId" />
+    <result column="spu_name" jdbcType="VARCHAR" property="spuName" />
+    <result column="spu_short_name" jdbcType="VARCHAR" property="spuShortName" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="brand_id" jdbcType="INTEGER" property="brandId" />
+    <result column="brand_name" jdbcType="VARCHAR" property="brandName" />
+    <result column="country_id" jdbcType="INTEGER" property="countryId" />
+    <result column="country_name" jdbcType="VARCHAR" property="countryName" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+    <result column="is_self" jdbcType="CHAR" property="isSelf" />
+    <result column="spu_score" jdbcType="INTEGER" property="spuScore" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify" jdbcType="VARCHAR" property="modify" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    spu_id, cate_id, spu_name, spu_short_name, category_id, brand_id, brand_name, country_id, 
+    country_name, shop_id, shop_name, is_self,spu_score, creator, create_date, modify, modify_date,
+    del_flag, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from prod_spu
+    where spu_id = #{spuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from prod_spu
+    where spu_id = #{spuId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.elastic.entity.po.ProdSpu">
+    insert into prod_spu (spu_id, cate_id, spu_name, 
+      spu_short_name, category_id, brand_id, 
+      brand_name, country_id, country_name, 
+      shop_id, shop_name, is_self, 
+      creator, create_date, modify, 
+      modify_date, del_flag, version
+      )
+    values (#{spuId,jdbcType=VARCHAR}, #{cateId,jdbcType=INTEGER}, #{spuName,jdbcType=VARCHAR}, 
+      #{spuShortName,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER}, 
+      #{brandName,jdbcType=VARCHAR}, #{countryId,jdbcType=INTEGER}, #{countryName,jdbcType=VARCHAR}, 
+      #{shopId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR}, #{isSelf,jdbcType=CHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modify,jdbcType=VARCHAR}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=CHAR}, #{version,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.elastic.entity.po.ProdSpu">
+    insert into prod_spu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="spuId != null">
+        spu_id,
+      </if>
+      <if test="cateId != null">
+        cate_id,
+      </if>
+      <if test="spuName != null">
+        spu_name,
+      </if>
+      <if test="spuShortName != null">
+        spu_short_name,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="brandId != null">
+        brand_id,
+      </if>
+      <if test="brandName != null">
+        brand_name,
+      </if>
+      <if test="countryId != null">
+        country_id,
+      </if>
+      <if test="countryName != null">
+        country_name,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="shopName != null">
+        shop_name,
+      </if>
+      <if test="isSelf != null">
+        is_self,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modify != null">
+        modify,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="spuId != null">
+        #{spuId,jdbcType=VARCHAR},
+      </if>
+      <if test="cateId != null">
+        #{cateId,jdbcType=INTEGER},
+      </if>
+      <if test="spuName != null">
+        #{spuName,jdbcType=VARCHAR},
+      </if>
+      <if test="spuShortName != null">
+        #{spuShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null">
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null">
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null">
+        #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="countryName != null">
+        #{countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null">
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="isSelf != null">
+        #{isSelf,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null">
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.elastic.entity.po.ProdSpu">
+    update prod_spu
+    <set>
+      <if test="cateId != null">
+        cate_id = #{cateId,jdbcType=INTEGER},
+      </if>
+      <if test="spuName != null">
+        spu_name = #{spuName,jdbcType=VARCHAR},
+      </if>
+      <if test="spuShortName != null">
+        spu_short_name = #{spuShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null">
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null">
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="countryName != null">
+        country_name = #{countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null">
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="isSelf != null">
+        is_self = #{isSelf,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null">
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=BIGINT},
+      </if>
+    </set>
+    where spu_id = #{spuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.elastic.entity.po.ProdSpu">
+    update prod_spu
+    set cate_id = #{cateId,jdbcType=INTEGER},
+      spu_name = #{spuName,jdbcType=VARCHAR},
+      spu_short_name = #{spuShortName,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      country_id = #{countryId,jdbcType=INTEGER},
+      country_name = #{countryName,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      shop_name = #{shopName,jdbcType=VARCHAR},
+      is_self = #{isSelf,jdbcType=CHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify = #{modify,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      version = #{version,jdbcType=BIGINT}
+    where spu_id = #{spuId,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="getMaxCount" resultType="int">
+    select count(1) from prod_spu
+  </select>
+  <select id="queryByBeanForPage" parameterType="com.elastic.entity.po.ProdSpu" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from prod_spu
+    <where>
+      <if test="spuId != null">
+        spu_id = #{spuId,jdbcType=VARCHAR}
+      </if>
+      <if test="cateId != null">
+        cate_id = #{cateId,jdbcType=VARCHAR},
+      </if>
+      <if test="spuName != null">
+        spu_name = #{spuName,jdbcType=VARCHAR},
+      </if>
+      <if test="spuShortName != null">
+        spu_short_name = #{spuShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="countryId != null">
+        country_id = #{countryId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="isSelf != null">
+        is_self = #{isSelf,jdbcType=CHAR},
+      </if>
+      <if test="spuScore != null">
+        spu_score = #{spuScore,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null">
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=TINYINT},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=BIGINT},
+      </if>
+    </where>
+    order by spu_id
+    <if test="start != null and size!=null">
+        LIMIT #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+     </if>
+  </select>
+</mapper>

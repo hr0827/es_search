@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elastic.mapper.ProdAttributeValueMapper">
+  <resultMap id="BaseResultMap" type="com.elastic.entity.po.ProdAttributeValue">
+    <id column="att_value_id" jdbcType="INTEGER" property="attValueId" />
+    <result column="att_id" jdbcType="INTEGER" property="attId" />
+    <result column="att_value" jdbcType="VARCHAR" property="attValue" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify" jdbcType="VARCHAR" property="modify" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="del_flag" jdbcType="TINYINT" property="delFlag" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    att_value_id, att_id, att_value, sort, creator, create_date, modify, modify_date, 
+    del_flag, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_attribute_value
+    where att_value_id = #{attValueId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAttrValueByAttrId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    `att_value_id`, 
+  	`att_value`
+    FROM prod_attribute_value
+    WHERE att_id = #{att_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_attribute_value
+    where att_value_id = #{attValueId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.elastic.entity.po.ProdAttributeValue">
+    insert into prod_attribute_value (att_value_id, att_id, att_value, 
+      sort, creator, create_date, 
+      modify, modify_date, del_flag, 
+      version)
+    values (#{attValueId,jdbcType=INTEGER}, #{attId,jdbcType=INTEGER}, #{attValue,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modify,jdbcType=VARCHAR}, #{modifyDate,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=TINYINT}, 
+      #{version,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.elastic.entity.po.ProdAttributeValue">
+    insert into prod_attribute_value
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="attValueId != null">
+        att_value_id,
+      </if>
+      <if test="attId != null">
+        att_id,
+      </if>
+      <if test="attValue != null">
+        att_value,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modify != null">
+        modify,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="attValueId != null">
+        #{attValueId,jdbcType=INTEGER},
+      </if>
+      <if test="attId != null">
+        #{attId,jdbcType=INTEGER},
+      </if>
+      <if test="attValue != null">
+        #{attValue,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null">
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=TINYINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.elastic.entity.po.ProdAttributeValue">
+    update prod_attribute_value
+    <set>
+      <if test="attId != null">
+        att_id = #{attId,jdbcType=INTEGER},
+      </if>
+      <if test="attValue != null">
+        att_value = #{attValue,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null">
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=TINYINT},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=BIGINT},
+      </if>
+    </set>
+    where att_value_id = #{attValueId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.elastic.entity.po.ProdAttributeValue">
+    update prod_attribute_value
+    set att_id = #{attId,jdbcType=INTEGER},
+      att_value = #{attValue,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify = #{modify,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=TINYINT},
+      version = #{version,jdbcType=BIGINT}
+    where att_value_id = #{attValueId,jdbcType=INTEGER}
+  </update>
+</mapper>

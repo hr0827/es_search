@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <!-- diamond 配置 -->
+    <bean id="diamondMultiPropertyPlaceholderConfigurer"
+          class="com.gomehigo.diamond.DiamondMultiPropertyPlaceholderConfigurer">
+        <property name="order" value="1"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="diamondConfs">
+            <list>
+                <ref bean="diamondConf1"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="diamondConf1" class="com.gomehigo.diamond.DiamondConf">
+        <property name="groupId" value="GOME_MARKET_SERVICE"/>
+        <property name="dataId" value="SEARCH_INDEX"/>
+    </bean>
+</beans>
+

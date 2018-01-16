@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elastic.mapper.ProdCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.elastic.entity.po.ProdCategory">
+    <id column="cate_id" jdbcType="INTEGER" property="cateId" />
+    <result column="cate_name" jdbcType="VARCHAR" property="cateName" />
+    <result column="cate_short_name" jdbcType="VARCHAR" property="cateShortName" />
+    <result column="parent_cate_id" jdbcType="INTEGER" property="parentCateId" />
+    <result column="cate_level" jdbcType="INTEGER" property="cateLevel" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="default_state" jdbcType="CHAR" property="defaultState" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modfiy" jdbcType="VARCHAR" property="modfiy" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cate_id, cate_name, cate_short_name, parent_cate_id, cate_level, img_url, sort, default_state, 
+    creator, create_date, modfiy, modify_date, del_flag, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_category
+    where cate_id = #{cateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from prod_category
+    where cate_id = #{cateId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.elastic.entity.po.ProdCategory">
+    insert into prod_category (cate_id, cate_name, cate_short_name, 
+      parent_cate_id, cate_level, img_url, 
+      sort, default_state, creator, 
+      create_date, modfiy, modify_date, 
+      del_flag, version)
+    values (#{cateId,jdbcType=INTEGER}, #{cateName,jdbcType=VARCHAR}, #{cateShortName,jdbcType=VARCHAR}, 
+      #{parentCateId,jdbcType=INTEGER}, #{cateLevel,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{defaultState,jdbcType=CHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{modfiy,jdbcType=VARCHAR}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{delFlag,jdbcType=CHAR}, #{version,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.elastic.entity.po.ProdCategory">
+    insert into prod_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cateId != null">
+        cate_id,
+      </if>
+      <if test="cateName != null">
+        cate_name,
+      </if>
+      <if test="cateShortName != null">
+        cate_short_name,
+      </if>
+      <if test="parentCateId != null">
+        parent_cate_id,
+      </if>
+      <if test="cateLevel != null">
+        cate_level,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="defaultState != null">
+        default_state,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modfiy != null">
+        modfiy,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cateId != null">
+        #{cateId,jdbcType=INTEGER},
+      </if>
+      <if test="cateName != null">
+        #{cateName,jdbcType=VARCHAR},
+      </if>
+      <if test="cateShortName != null">
+        #{cateShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCateId != null">
+        #{parentCateId,jdbcType=INTEGER},
+      </if>
+      <if test="cateLevel != null">
+        #{cateLevel,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="defaultState != null">
+        #{defaultState,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modfiy != null">
+        #{modfiy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.elastic.entity.po.ProdCategory">
+    update prod_category
+    <set>
+      <if test="cateName != null">
+        cate_name = #{cateName,jdbcType=VARCHAR},
+      </if>
+      <if test="cateShortName != null">
+        cate_short_name = #{cateShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCateId != null">
+        parent_cate_id = #{parentCateId,jdbcType=INTEGER},
+      </if>
+      <if test="cateLevel != null">
+        cate_level = #{cateLevel,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="defaultState != null">
+        default_state = #{defaultState,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modfiy != null">
+        modfiy = #{modfiy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=BIGINT},
+      </if>
+    </set>
+    where cate_id = #{cateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.elastic.entity.po.ProdCategory">
+    update prod_category
+    set cate_name = #{cateName,jdbcType=VARCHAR},
+      cate_short_name = #{cateShortName,jdbcType=VARCHAR},
+      parent_cate_id = #{parentCateId,jdbcType=INTEGER},
+      cate_level = #{cateLevel,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      default_state = #{defaultState,jdbcType=CHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modfiy = #{modfiy,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      version = #{version,jdbcType=BIGINT}
+    where cate_id = #{cateId,jdbcType=INTEGER}
+  </update>
+</mapper>

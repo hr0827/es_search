@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.elastic.mapper.ProdSkuMapper">
+    <resultMap id="BaseResultMap" type="com.elastic.entity.po.ProdSku">
+        <id column="sku_id" property="skuId" jdbcType="VARCHAR"/>
+        <result column="spu_id" property="spuId" jdbcType="VARCHAR"/>
+        <result column="gome_skuid" property="gomeSkuid" jdbcType="VARCHAR"/>
+        <result column="sku_name" property="skuName" jdbcType="VARCHAR"/>
+        <result column="sku_status" property="skuStatus" jdbcType="INTEGER"/>
+        <result column="sku_status_name" property="skuStatusName" jdbcType="VARCHAR"/>
+        <result column="default_state" property="defaultState" jdbcType="CHAR"/>
+        <result column="sku_sort" property="skuSort" jdbcType="INTEGER"/>
+        <result column="show_browse_number" property="showBrowseNumber" jdbcType="INTEGER"/>
+        <result column="browse_number" property="browseNumber" jdbcType="INTEGER"/>
+        <result column="show_collection_number" property="showCollectionNumber" jdbcType="INTEGER"/>
+        <result column="collection_number" property="collectionNumber" jdbcType="INTEGER"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify" property="modify" jdbcType="VARCHAR"/>
+        <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="del_flag" property="delFlag" jdbcType="CHAR"/>
+        <result column="version" property="version" jdbcType="BIGINT"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    sku_id, spu_id, gome_skuid, sku_name, sku_status, sku_status_name, default_state, 
+    sku_sort, show_browse_number, browse_number, show_collection_number, collection_number, 
+    creator, create_date, modify, modify_date, del_flag, version
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.elastic.entity.po.ProdSkuExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from prod_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="limitStart != null and limitStart >= 0">
+            limit ${limitStart} , ${count}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from prod_sku
+        where sku_id = #{skuId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from prod_sku
+    where sku_id = #{skuId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.elastic.entity.po.ProdSkuExample">
+        delete from prod_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.elastic.entity.po.ProdSku">
+    insert into prod_sku (sku_id, spu_id, gome_skuid, 
+      sku_name, sku_status, sku_status_name, 
+      default_state, sku_sort, show_browse_number, 
+      browse_number, show_collection_number, collection_number, 
+      creator, create_date, modify, 
+      modify_date, del_flag, version
+      )
+    values (#{skuId,jdbcType=VARCHAR}, #{spuId,jdbcType=VARCHAR}, #{gomeSkuid,jdbcType=VARCHAR}, 
+      #{skuName,jdbcType=VARCHAR}, #{skuStatus,jdbcType=INTEGER}, #{skuStatusName,jdbcType=VARCHAR}, 
+      #{defaultState,jdbcType=CHAR}, #{skuSort,jdbcType=INTEGER}, #{showBrowseNumber,jdbcType=INTEGER}, 
+      #{browseNumber,jdbcType=INTEGER}, #{showCollectionNumber,jdbcType=INTEGER}, #{collectionNumber,jdbcType=INTEGER}, 
+      #{creator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modify,jdbcType=VARCHAR}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=CHAR}, #{version,jdbcType=BIGINT}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.elastic.entity.po.ProdSku">
+        insert into prod_sku
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="skuId != null">
+                sku_id,
+            </if>
+            <if test="spuId != null">
+                spu_id,
+            </if>
+            <if test="gomeSkuid != null">
+                gome_skuid,
+            </if>
+            <if test="skuName != null">
+                sku_name,
+            </if>
+            <if test="skuStatus != null">
+                sku_status,
+            </if>
+            <if test="skuStatusName != null">
+                sku_status_name,
+            </if>
+            <if test="defaultState != null">
+                default_state,
+            </if>
+            <if test="skuSort != null">
+                sku_sort,
+            </if>
+            <if test="showBrowseNumber != null">
+                show_browse_number,
+            </if>
+            <if test="browseNumber != null">
+                browse_number,
+            </if>
+            <if test="showCollectionNumber != null">
+                show_collection_number,
+            </if>
+            <if test="collectionNumber != null">
+                collection_number,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="modify != null">
+                modify,
+            </if>
+            <if test="modifyDate != null">
+                modify_date,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="skuId != null">
+                #{skuId,jdbcType=VARCHAR},
+            </if>
+            <if test="spuId != null">
+                #{spuId,jdbcType=VARCHAR},
+            </if>
+            <if test="gomeSkuid != null">
+                #{gomeSkuid,jdbcType=VARCHAR},
+            </if>
+            <if test="skuName != null">
+                #{skuName,jdbcType=VARCHAR},
+            </if>
+            <if test="skuStatus != null">
+                #{skuStatus,jdbcType=INTEGER},
+            </if>
+            <if test="skuStatusName != null">
+                #{skuStatusName,jdbcType=VARCHAR},
+            </if>
+            <if test="defaultState != null">
+                #{defaultState,jdbcType=CHAR},
+            </if>
+            <if test="skuSort != null">
+                #{skuSort,jdbcType=INTEGER},
+            </if>
+            <if test="showBrowseNumber != null">
+                #{showBrowseNumber,jdbcType=INTEGER},
+            </if>
+            <if test="browseNumber != null">
+                #{browseNumber,jdbcType=INTEGER},
+            </if>
+            <if test="showCollectionNumber != null">
+                #{showCollectionNumber,jdbcType=INTEGER},
+            </if>
+            <if test="collectionNumber != null">
+                #{collectionNumber,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modify != null">
+                #{modify,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyDate != null">
+                #{modifyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag,jdbcType=CHAR},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.elastic.entity.po.ProdSkuExample" resultType="java.lang.Integer">
+        select count(*) from prod_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update prod_sku
+        <set>
+            <if test="record.skuId != null">
+                sku_id = #{record.skuId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.spuId != null">
+                spu_id = #{record.spuId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.gomeSkuid != null">
+                gome_skuid = #{record.gomeSkuid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.skuName != null">
+                sku_name = #{record.skuName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.skuStatus != null">
+                sku_status = #{record.skuStatus,jdbcType=INTEGER},
+            </if>
+            <if test="record.skuStatusName != null">
+                sku_status_name = #{record.skuStatusName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.defaultState != null">
+                default_state = #{record.defaultState,jdbcType=CHAR},
+            </if>
+            <if test="record.skuSort != null">
+                sku_sort = #{record.skuSort,jdbcType=INTEGER},
+            </if>
+            <if test="record.showBrowseNumber != null">
+                show_browse_number = #{record.showBrowseNumber,jdbcType=INTEGER},
+            </if>
+            <if test="record.browseNumber != null">
+                browse_number = #{record.browseNumber,jdbcType=INTEGER},
+            </if>
+            <if test="record.showCollectionNumber != null">
+                show_collection_number = #{record.showCollectionNumber,jdbcType=INTEGER},
+            </if>
+            <if test="record.collectionNumber != null">
+                collection_number = #{record.collectionNumber,jdbcType=INTEGER},
+            </if>
+            <if test="record.creator != null">
+                creator = #{record.creator,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createDate != null">
+                create_date = #{record.createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.modify != null">
+                modify = #{record.modify,jdbcType=VARCHAR},
+            </if>
+            <if test="record.modifyDate != null">
+                modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.delFlag != null">
+                del_flag = #{record.delFlag,jdbcType=CHAR},
+            </if>
+            <if test="record.version != null">
+                version = #{record.version,jdbcType=BIGINT},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update prod_sku
+        set sku_id = #{record.skuId,jdbcType=VARCHAR},
+        spu_id = #{record.spuId,jdbcType=VARCHAR},
+        gome_skuid = #{record.gomeSkuid,jdbcType=VARCHAR},
+        sku_name = #{record.skuName,jdbcType=VARCHAR},
+        sku_status = #{record.skuStatus,jdbcType=INTEGER},
+        sku_status_name = #{record.skuStatusName,jdbcType=VARCHAR},
+        default_state = #{record.defaultState,jdbcType=CHAR},
+        sku_sort = #{record.skuSort,jdbcType=INTEGER},
+        show_browse_number = #{record.showBrowseNumber,jdbcType=INTEGER},
+        browse_number = #{record.browseNumber,jdbcType=INTEGER},
+        show_collection_number = #{record.showCollectionNumber,jdbcType=INTEGER},
+        collection_number = #{record.collectionNumber,jdbcType=INTEGER},
+        creator = #{record.creator,jdbcType=VARCHAR},
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+        modify = #{record.modify,jdbcType=VARCHAR},
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+        del_flag = #{record.delFlag,jdbcType=CHAR},
+        version = #{record.version,jdbcType=BIGINT}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.elastic.entity.po.ProdSku">
+        update prod_sku
+        <set>
+            <if test="spuId != null">
+                spu_id = #{spuId,jdbcType=VARCHAR},
+            </if>
+            <if test="gomeSkuid != null">
+                gome_skuid = #{gomeSkuid,jdbcType=VARCHAR},
+            </if>
+            <if test="skuName != null">
+                sku_name = #{skuName,jdbcType=VARCHAR},
+            </if>
+            <if test="skuStatus != null">
+                sku_status = #{skuStatus,jdbcType=INTEGER},
+            </if>
+            <if test="skuStatusName != null">
+                sku_status_name = #{skuStatusName,jdbcType=VARCHAR},
+            </if>
+            <if test="defaultState != null">
+                default_state = #{defaultState,jdbcType=CHAR},
+            </if>
+            <if test="skuSort != null">
+                sku_sort = #{skuSort,jdbcType=INTEGER},
+            </if>
+            <if test="showBrowseNumber != null">
+                show_browse_number = #{showBrowseNumber,jdbcType=INTEGER},
+            </if>
+            <if test="browseNumber != null">
+                browse_number = #{browseNumber,jdbcType=INTEGER},
+            </if>
+            <if test="showCollectionNumber != null">
+                show_collection_number = #{showCollectionNumber,jdbcType=INTEGER},
+            </if>
+            <if test="collectionNumber != null">
+                collection_number = #{collectionNumber,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modify != null">
+                modify = #{modify,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag,jdbcType=CHAR},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=BIGINT},
+            </if>
+        </set>
+        where sku_id = #{skuId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.elastic.entity.po.ProdSku">
+    update prod_sku
+    set spu_id = #{spuId,jdbcType=VARCHAR},
+      gome_skuid = #{gomeSkuid,jdbcType=VARCHAR},
+      sku_name = #{skuName,jdbcType=VARCHAR},
+      sku_status = #{skuStatus,jdbcType=INTEGER},
+      sku_status_name = #{skuStatusName,jdbcType=VARCHAR},
+      default_state = #{defaultState,jdbcType=CHAR},
+      sku_sort = #{skuSort,jdbcType=INTEGER},
+      show_browse_number = #{showBrowseNumber,jdbcType=INTEGER},
+      browse_number = #{browseNumber,jdbcType=INTEGER},
+      show_collection_number = #{showCollectionNumber,jdbcType=INTEGER},
+      collection_number = #{collectionNumber,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify = #{modify,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      version = #{version,jdbcType=BIGINT}
+    where sku_id = #{skuId,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectOneDefaultSkuBySpu" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM `prod_sku` WHERE default_state=1 AND sku_status=4 AND del_flag=0 AND spu_id=#{spuId,jdbcType=VARCHAR} LIMIT 1
+    </select>
+    <select id="selectOneShelfSkuBySpu" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM `prod_sku` WHERE sku_status=4 AND del_flag=0 AND spu_id=#{spuId,jdbcType=VARCHAR} ORDER BY sku_sort LIMIT 1
+    </select>
+    <select id="selectShelfSkusBySpu" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM `prod_sku` WHERE sku_status=4 AND del_flag=0 AND spu_id=#{spuId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectSkusBySpu" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM `prod_sku` WHERE del_flag=0 AND spu_id=#{spuId,jdbcType=VARCHAR} ORDER BY default_state DESC,sku_sort ASC
+    </select>
+</mapper>

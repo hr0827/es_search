@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.elastic.mapper.CmsCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.elastic.entity.po.CmsCategory" >
+    <id column="cms_cate_id" property="cmsCateId" jdbcType="INTEGER" />
+    <result column="cms_category_pagekey" property="cmsCategoryPagekey" jdbcType="VARCHAR" />
+    <result column="cms_cate_parentid" property="cmsCateParentid" jdbcType="INTEGER" />
+    <result column="cms_cate_name" property="cmsCateName" jdbcType="VARCHAR" />
+    <result column="cms_cate_level" property="cmsCateLevel" jdbcType="INTEGER" />
+    <result column="red_flg" property="redFlg" jdbcType="CHAR" />
+    <result column="prod_cate_ids" property="prodCateIds" jdbcType="VARCHAR" />
+    <result column="cms_cate_order" property="cmsCateOrder" jdbcType="INTEGER" />
+    <result column="cms_cate_targeturl" property="cmsCateTargeturl" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cms_cate_id, cms_category_pagekey, cms_cate_parentid, cms_cate_name, cms_cate_level, 
+    red_flg, prod_cate_ids, cms_cate_order, cms_cate_targeturl, creator, create_date, 
+    modify, modify_date, del_flag, version
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.elastic.entity.po.CmsCategoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from cms_category
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0" >
+      limit ${limitStart} , ${count}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_category
+    where cms_cate_id = #{cmsCateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cms_category
+    where cms_cate_id = #{cmsCateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.elastic.entity.po.CmsCategoryExample" >
+    delete from cms_category
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.elastic.entity.po.CmsCategory" >
+    insert into cms_category (cms_cate_id, cms_category_pagekey, cms_cate_parentid, 
+      cms_cate_name, cms_cate_level, red_flg, 
+      prod_cate_ids, cms_cate_order, cms_cate_targeturl, 
+      creator, create_date, modify, 
+      modify_date, del_flag, version
+      )
+    values (#{cmsCateId,jdbcType=INTEGER}, #{cmsCategoryPagekey,jdbcType=VARCHAR}, #{cmsCateParentid,jdbcType=INTEGER}, 
+      #{cmsCateName,jdbcType=VARCHAR}, #{cmsCateLevel,jdbcType=INTEGER}, #{redFlg,jdbcType=CHAR}, 
+      #{prodCateIds,jdbcType=VARCHAR}, #{cmsCateOrder,jdbcType=INTEGER}, #{cmsCateTargeturl,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modify,jdbcType=VARCHAR}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=INTEGER}, #{version,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.elastic.entity.po.CmsCategory" >
+    insert into cms_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cmsCateId != null" >
+        cms_cate_id,
+      </if>
+      <if test="cmsCategoryPagekey != null" >
+        cms_category_pagekey,
+      </if>
+      <if test="cmsCateParentid != null" >
+        cms_cate_parentid,
+      </if>
+      <if test="cmsCateName != null" >
+        cms_cate_name,
+      </if>
+      <if test="cmsCateLevel != null" >
+        cms_cate_level,
+      </if>
+      <if test="redFlg != null" >
+        red_flg,
+      </if>
+      <if test="prodCateIds != null" >
+        prod_cate_ids,
+      </if>
+      <if test="cmsCateOrder != null" >
+        cms_cate_order,
+      </if>
+      <if test="cmsCateTargeturl != null" >
+        cms_cate_targeturl,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modify != null" >
+        modify,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cmsCateId != null" >
+        #{cmsCateId,jdbcType=INTEGER},
+      </if>
+      <if test="cmsCategoryPagekey != null" >
+        #{cmsCategoryPagekey,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsCateParentid != null" >
+        #{cmsCateParentid,jdbcType=INTEGER},
+      </if>
+      <if test="cmsCateName != null" >
+        #{cmsCateName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsCateLevel != null" >
+        #{cmsCateLevel,jdbcType=INTEGER},
+      </if>
+      <if test="redFlg != null" >
+        #{redFlg,jdbcType=CHAR},
+      </if>
+      <if test="prodCateIds != null" >
+        #{prodCateIds,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsCateOrder != null" >
+        #{cmsCateOrder,jdbcType=INTEGER},
+      </if>
+      <if test="cmsCateTargeturl != null" >
+        #{cmsCateTargeturl,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.elastic.entity.po.CmsCategoryExample" resultType="java.lang.Integer" >
+    select count(*) from cms_category
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cms_category
+    <set >
+      <if test="record.cmsCateId != null" >
+        cms_cate_id = #{record.cmsCateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmsCategoryPagekey != null" >
+        cms_category_pagekey = #{record.cmsCategoryPagekey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmsCateParentid != null" >
+        cms_cate_parentid = #{record.cmsCateParentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmsCateName != null" >
+        cms_cate_name = #{record.cmsCateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmsCateLevel != null" >
+        cms_cate_level = #{record.cmsCateLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.redFlg != null" >
+        red_flg = #{record.redFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.prodCateIds != null" >
+        prod_cate_ids = #{record.prodCateIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmsCateOrder != null" >
+        cms_cate_order = #{record.cmsCateOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmsCateTargeturl != null" >
+        cms_cate_targeturl = #{record.cmsCateTargeturl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modify != null" >
+        modify = #{record.modify,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.delFlag != null" >
+        del_flag = #{record.delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cms_category
+    set cms_cate_id = #{record.cmsCateId,jdbcType=INTEGER},
+      cms_category_pagekey = #{record.cmsCategoryPagekey,jdbcType=VARCHAR},
+      cms_cate_parentid = #{record.cmsCateParentid,jdbcType=INTEGER},
+      cms_cate_name = #{record.cmsCateName,jdbcType=VARCHAR},
+      cms_cate_level = #{record.cmsCateLevel,jdbcType=INTEGER},
+      red_flg = #{record.redFlg,jdbcType=CHAR},
+      prod_cate_ids = #{record.prodCateIds,jdbcType=VARCHAR},
+      cms_cate_order = #{record.cmsCateOrder,jdbcType=INTEGER},
+      cms_cate_targeturl = #{record.cmsCateTargeturl,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify = #{record.modify,jdbcType=VARCHAR},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      del_flag = #{record.delFlag,jdbcType=INTEGER},
+      version = #{record.version,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.elastic.entity.po.CmsCategory" >
+    update cms_category
+    <set >
+      <if test="cmsCategoryPagekey != null" >
+        cms_category_pagekey = #{cmsCategoryPagekey,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsCateParentid != null" >
+        cms_cate_parentid = #{cmsCateParentid,jdbcType=INTEGER},
+      </if>
+      <if test="cmsCateName != null" >
+        cms_cate_name = #{cmsCateName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsCateLevel != null" >
+        cms_cate_level = #{cmsCateLevel,jdbcType=INTEGER},
+      </if>
+      <if test="redFlg != null" >
+        red_flg = #{redFlg,jdbcType=CHAR},
+      </if>
+      <if test="prodCateIds != null" >
+        prod_cate_ids = #{prodCateIds,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsCateOrder != null" >
+        cms_cate_order = #{cmsCateOrder,jdbcType=INTEGER},
+      </if>
+      <if test="cmsCateTargeturl != null" >
+        cms_cate_targeturl = #{cmsCateTargeturl,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=BIGINT},
+      </if>
+    </set>
+    where cms_cate_id = #{cmsCateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.elastic.entity.po.CmsCategory" >
+    update cms_category
+    set cms_category_pagekey = #{cmsCategoryPagekey,jdbcType=VARCHAR},
+      cms_cate_parentid = #{cmsCateParentid,jdbcType=INTEGER},
+      cms_cate_name = #{cmsCateName,jdbcType=VARCHAR},
+      cms_cate_level = #{cmsCateLevel,jdbcType=INTEGER},
+      red_flg = #{redFlg,jdbcType=CHAR},
+      prod_cate_ids = #{prodCateIds,jdbcType=VARCHAR},
+      cms_cate_order = #{cmsCateOrder,jdbcType=INTEGER},
+      cms_cate_targeturl = #{cmsCateTargeturl,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify = #{modify,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=INTEGER},
+      version = #{version,jdbcType=BIGINT}
+    where cms_cate_id = #{cmsCateId,jdbcType=INTEGER}
+  </update>
+</mapper>

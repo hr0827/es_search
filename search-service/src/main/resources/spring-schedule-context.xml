@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:task="http://www.springframework.org/schema/task"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans  
+http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+http://www.springframework.org/schema/task  
+http://www.springframework.org/schema/task/spring-task-4.3.xsd ">
+
+   <!-- <bean id="indexTask" class="com.market.index.task.FullIndexTask"/>
+    <task:scheduled-tasks>
+        <task:scheduled ref="indexTask" method="fullIndex" cron="0 */60 * * * ?"/>
+        &lt;!&ndash;<task:scheduled ref="indexTask" method="fullIndex" cron="*/5 * * * * ?"/>&ndash;&gt;
+    </task:scheduled-tasks>-->
+
+  <!-- <bean id="bbsIndexTask" class="com.market.index.task.BBSIndexTask"/>
+   <task:scheduled-tasks>
+        <task:scheduled ref="bbsIndexTask" method="fullIndex" cron="0 */60 * * * ?"/>
+        &lt;!&ndash;<task:scheduled ref="bbsIndexTask" method="fullIndex" cron="*/5 * * * * ?"/>&ndash;&gt;
+  </task:scheduled-tasks>-->
+
+    <!--<bean id="superMarketForSpuIndexTask" class="com.market.index.task.SuperMarketForSpuIndexTask"/>
+    <task:scheduled-tasks>
+        &lt;!&ndash;<task:scheduled ref="indexTask" method="fullIndex" cron="0 */15 * * * ?"/>&ndash;&gt;
+        <task:scheduled ref="superMarketForSpuIndexTask" method="fullIndex" cron="0 */5 * * * ?"/>
+    </task:scheduled-tasks>-->
+
+   <bean id="superMarketIndexTask" class="com.elastic.task.SuperMarketIndexTask"/>
+    <task:scheduled-tasks>
+        <!--<task:scheduled ref="indexTask" method="fullIndex" cron="0 */15 * * * ?"/>-->
+        <!--<task:scheduled ref="superMarketIndexTask" method="fullIndex" cron="0/5 * * * * ?"/>-->
+        <task:scheduled ref="superMarketIndexTask" method="fullIndex" cron="0 */60 * * * ?"/>
+    </task:scheduled-tasks>
+
+
+
+</beans>
